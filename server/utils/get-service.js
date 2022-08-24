@@ -1,9 +1,9 @@
 'use strict';
 
-const pluginId = require( './plugin-id' );
+const pluginId = require('./plugin-id');
 
-const getService = name => {
-  return strapi.plugin( pluginId ).service( name );
+const getService = (name) => {
+  return strapi.plugin(pluginId).service(name);
 };
 
 module.exports = getService;

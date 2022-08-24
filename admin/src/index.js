@@ -1,26 +1,23 @@
 import { prefixPluginTranslations } from '@strapi/helper-plugin';
 
-
-
-import { Initializer, Informations, RightLinks } from './components';
+import { Informations, Initializer, RightLinks } from './components';
 import reducers from './reducers';
-import { getTrad, pluginId, pluginName } from './utils';
-
+import { pluginId, pluginName } from './utils';
 
 export default {
-  register( app ) {
-    app.addReducers( reducers );
+  register(app) {
+    app.addReducers(reducers);
 
-    app.registerPlugin( {
+    app.registerPlugin({
       id: pluginId,
       name: pluginName,
       initializer: Initializer,
       isReady: false,
-    } );
+    });
   },
 
-  bootstrap( app ) {
-    app.injectContentManagerComponent( 'editView', 'right-links', {
+  bootstrap(app) {
+    app.injectContentManagerComponent('editView', 'right-links', {
       name: pluginId,
       Component: RightLinks,
     });
@@ -30,25 +27,25 @@ export default {
     });
   },
 
-  async registerTrads( { locales } ) {
+  async registerTrads({ locales }) {
     const importedTrads = await Promise.all(
-      locales.map( locale => {
-        return import( `./translations/${locale}.json` )
-          .then( ( { default: data } ) => {
+      locales.map((locale) => {
+        return import(`./translations/${locale}.json`)
+          .then(({ default: data }) => {
             return {
-              data: prefixPluginTranslations( data, pluginId ),
+              data: prefixPluginTranslations(data, pluginId),
               locale,
             };
-          } )
-          .catch( () => {
+          })
+          .catch(() => {
             return {
               data: {},
               locale,
             };
-          } );
-      } )
+          });
+      })
     );
 
-    return Promise.resolve( importedTrads );
+    return Promise.resolve(importedTrads);
   },
 };

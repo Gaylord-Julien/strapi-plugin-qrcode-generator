@@ -1,7 +1,5 @@
 'use strict';
 
-const { get } = require('lodash');
-
 const { getService, pluginId } = require('../utils');
 
 const QRCode = require('qrcode');

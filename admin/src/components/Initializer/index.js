@@ -1,20 +1,20 @@
-import { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { useEffect, useRef } from 'react';
 
 import { usePluginConfig } from '../../hooks';
 import { pluginId } from '../../utils';
 
-const Initializer = ( { setPlugin } ) => {
+const Initializer = ({ setPlugin }) => {
   const { isLoading } = usePluginConfig();
   const ref = useRef();
 
   ref.current = setPlugin;
 
-  useEffect( () => {
-    if ( ! isLoading ) {
-      ref.current( pluginId );
+  useEffect(() => {
+    if (!isLoading) {
+      ref.current(pluginId);
     }
-  }, [ isLoading ] );
+  }, [isLoading]);
 
   return null;
 };

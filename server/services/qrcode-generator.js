@@ -1,14 +1,10 @@
 'use strict';
 
 const { get } = require('lodash');
-const qs = require('qs');
-
-const config = require('../config');
-const { buildUrl } = require('../utils');
 
 module.exports = ({ strapi }) => ({
   getPreviewUrls(entity, contentTypeConfig) {
-    const { uid, targetField, draft, published } = contentTypeConfig;
+    const { targetField, published } = contentTypeConfig;
 
     // If `targetField` is defined in either `draft` or `publish`, prioritize those
     // props over the top-level `targetField`.

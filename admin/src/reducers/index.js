@@ -1,10 +1,10 @@
 import { pluginId } from '../utils';
-import main from './main';
 import config from './config';
+import main from './main';
 
 const reducers = {
-  [ pluginId ]: main,
-  [ `${pluginId}_config` ]: config,
+  [pluginId]: main,
+  [`${pluginId}_config`]: config,
 };
 
 export default reducers;
