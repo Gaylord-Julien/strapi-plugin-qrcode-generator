@@ -21,7 +21,7 @@ module.exports = {
         ctx.throw(500, err);
       }
       ctx.type = 'image/svg+xml; charset=utf-8';
-      ctx.set('Content-Disposition', 'attachment; filename=' + filename + '.svg');
+      ctx.set('Content-Disposition', `attachment; filename=${filename}.svg`);
 
       ctx.body = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1080" height="1080" viewBox="0 0 1080 1080">${svg}</svg>`;
     });
@@ -39,9 +39,7 @@ module.exports = {
   async findOne(ctx) {
     const { uid, id } = ctx.request.params;
 
-    const hasEnvVars = [process.env.STRAPI_PREVIEW_SECRET, process.env.STRAPI_BASE_FRONTEND].every(
-      (val) => val
-    );
+    const hasEnvVars = process.env.STRAPI_BASE_FRONTEND;
 
     const { contentTypes } = await getService('plugin').getConfig();
     const supportedType = contentTypes.find((type) => type.uid === uid);
