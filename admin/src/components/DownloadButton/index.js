@@ -20,7 +20,10 @@ const DownloadButton = ({ urlToEncode, filename }) => {
     }
 
     window.open(
-      `${rootUrl}/qrcode-generator?url=${encodeURIComponent(destination)}&filename=${filename}`
+      `${rootUrl}/qrcode-generator?url=${encodeURIComponent(
+        destination
+      )}&filename=${filename}&download=true`,
+      '_self'
     );
   };
 
