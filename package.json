@@ -1,0 +1,56 @@
+{
+  "name": "strapi-plugin-qrcode-generator",
+  "version": "0.0.1",
+  "description": "A plugin for Strapi CMS to generate a QR Code based on a specific field.",
+  "license": "MIT",
+  "strapi": {
+    "displayName": "QR Code Generator",
+    "name": "qrcode-generator",
+    "description": "A plugin for Strapi CMS to generate a QR Code based on a specific field.",
+    "kind": "plugin"
+  },
+  "peerDependencies": {
+    "@strapi/design-system": "^1.1.0",
+    "@strapi/helper-plugin": "^4.1.10",
+    "@strapi/icons": "^1.1.0",
+    "@strapi/strapi": "^4.1.10",
+    "@strapi/utils": "^4.1.10"
+  },
+  "dependencies": {
+    "immer": "^9.0.15",
+    "prop-types": "^15.8.1",
+    "qs": "^6.11.0",
+    "react": "^18.2.0",
+    "react-intl": "^6.0.8",
+    "react-redux": "^8.0.2",
+    "react-router-dom": "^6.3.0"
+  },
+  "engines": {
+    "node": ">=12.x.x <=16.x.x",
+    "npm": ">=6.0.0"
+  },
+  "author": {
+    "name": "Gaylord Julien",
+    "url": "https://github.com/gaylord-julien"
+  },
+  "maintainers": [
+    {
+      "name": "Gaylord Julien",
+      "url": "https://github.com/gaylord-julien"
+    }
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gaylord-julien/strapi-plugin-qrcode-generator.git"
+  },
+  "keywords": [
+    "strapi",
+    "plugin",
+    "qrcode",
+    "page",
+    "next"
+  ]
+}
