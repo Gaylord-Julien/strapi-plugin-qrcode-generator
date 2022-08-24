@@ -1,6 +1,7 @@
 'use strict';
 
 const { get } = require('lodash');
+const { buildUrl } = require('../utils');
 
 module.exports = ({ strapi }) => ({
   getPreviewUrls(entity, contentTypeConfig) {
