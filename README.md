@@ -5,7 +5,6 @@
   <img style="width: 960px; height: auto;" src="public/screenshot.png" alt="Strapi plugin qrcode generator screenshot" />
 </div>
 
-
 ## Features
 
 - Output svg qr code with rest api parameters.
@@ -13,7 +12,7 @@
 - Display qr code on content manager.
 - Supports collection and single types.
 
-## How to install 
+## How to install
 
 ```bash
 npm i strapi-plugin-qrcode-generator
@@ -29,21 +28,21 @@ Include this to your .env file :
 STRAPI_BASE_FRONTEND=https://www.example.org
 ```
 
-To display the download button and qr code, you need to edit ou create ```config/plugins.js```, for each content type.
+To display the download button and qr code, you need to edit or create `config/plugins.js`, for each content type.
 
-For example in the screenshot above, this is enabled : 
+For example in the screenshot above, this is enabled :
 
 ```js
 module.exports = {
-  "qrcode-generator": {
+  'qrcode-generator': {
     enabled: true,
     config: {
       contentTypes: [
         {
-          uid: "api::cartel.cartel",
-          targetField: "slug",
+          uid: 'api::cartel.cartel',
+          targetField: 'slug',
           frontend: {
-            basePath: "/cartels",
+            basePath: '/cartels',
           },
         },
       ],
@@ -52,12 +51,11 @@ module.exports = {
 };
 ```
 
-> For example here we get cartel's field slug value, then we provide basePath's value inside frontend so that the downloaded qr code from the content manager includes it.
+> Here we get cartel's field slug value, then we provide basePath's value inside frontend so that the downloaded qr code from the content manager includes it.
 
 ## REST API
 
 You can also get qr codes by querying qrcode-generator endpoint :
-
 
 ## API Reference
 
@@ -67,12 +65,11 @@ You can also get qr codes by querying qrcode-generator endpoint :
   GET /qrcode-generator
 ```
 
-| Parameter | Description                |
-| :-------- | :------------------------- |
-| `download=true` |  Make it downloadable |
-| `filename=` |  Filename of the file |
-| `url=` |  Url to encode |
-
+| Parameter       | Description          |
+| :-------------- | :------------------- |
+| `download=true` | Make it downloadable |
+| `filename=`     | Filename of the file |
+| `url=`          | Url to encode        |
 
 Example:
 
@@ -84,4 +81,3 @@ http://localhost:1337/qrcode-generator?url=www.example.org&filename=example-qrco
 
 - Additional qr code configs for rest api
 - Additional params for rest api
-

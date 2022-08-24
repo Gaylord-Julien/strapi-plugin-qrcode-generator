@@ -1,6 +1,6 @@
 {
   "name": "strapi-plugin-qrcode-generator",
-  "version": "0.0.6",
+  "version": "0.0.10",
   "description": "A plugin for Strapi CMS to generate a QR Code based on a specific field.",
   "license": "MIT",
   "strapi": {
