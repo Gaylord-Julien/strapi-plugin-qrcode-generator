@@ -36,7 +36,7 @@ const DownloadButton = ({ urlToEncode, filename }) => {
       style={{ width: '100%' }}
     >
       {formatMessage({
-        id: getTrad('label.published'),
+        id: getTrad('label.button'),
         defaultMessage: 'Download my QR Code',
       })}
     </Button>

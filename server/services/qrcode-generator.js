@@ -5,26 +5,22 @@ const { buildUrl } = require('../utils');
 
 module.exports = ({ strapi }) => ({
   getPreviewUrls(entity, contentTypeConfig) {
-    const { targetField, published } = contentTypeConfig;
+    const { targetField, frontend, qrCodeConfig } = contentTypeConfig;
 
-    // If `targetField` is defined in either `draft` or `publish`, prioritize those
-    // props over the top-level `targetField`.
-    const publishedTargetField = get(published, 'targetField', targetField);
-    const publishedTargetFieldValue = get(entity, publishedTargetField, null);
-
-    // Prepare draft and published URL parts.
-    const publishedBasePath = get(published, 'basePath', null);
-    const publishedQuery = get(published, 'query', {});
+    const wantedTargetField = get(targetField, 'targetField', targetField);
+    const wantedTargetFieldValue = get(entity, wantedTargetField, null);
+    const frontendBasePath = get(frontend, 'basePath', null);
+    const qrCodeQuery = get(qrCodeConfig, 'query', {});
     // Include the required `secret` into the draft query params.
 
     const urlToEncode = buildUrl(
       process.env.STRAPI_BASE_FRONTEND,
-      publishedBasePath,
-      publishedTargetFieldValue,
-      publishedQuery
+      frontendBasePath,
+      wantedTargetFieldValue,
+      qrCodeQuery
     );
 
-    const targetFieldValue = publishedTargetFieldValue;
+    const targetFieldValue = wantedTargetFieldValue;
 
     return {
       urlToEncode,
