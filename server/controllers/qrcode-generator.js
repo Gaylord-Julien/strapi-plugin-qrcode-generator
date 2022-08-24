@@ -20,10 +20,19 @@ module.exports = {
       if (err) {
         ctx.throw(500, err);
       }
-      ctx.type = 'image/svg+xml; charset=utf-8';
-      ctx.set('Content-Disposition', `attachment; filename=${filename}.svg`);
+      if (ctx.request.query && ctx.request.query.download === 'true') {
+        ctx.type = 'image/svg+xml; charset=utf-8';
+        ctx.set('Content-Disposition', `attachment; filename=${filename}.svg`);
 
-      ctx.body = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1080" height="1080" viewBox="0 0 1080 1080">${svg}</svg>`;
+        ctx.body = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1080" height="1080" viewBox="0 0 1080 1080">${svg}</svg>`;
+      } else {
+        ctx.type = 'image/svg+xml; charset=utf-8';
+        ctx.status = 200;
+        // json output
+        ctx.body = {
+          svg: `${svg}`,
+        };
+      }
     });
   },
   async config(ctx) {
