@@ -12,7 +12,8 @@
   "scripts": {
     "make-pretty": "prettier --write '**/*.{js,jsx,ts,tsx}'",
     "lint": "eslint '**/*.{js,jsx,ts,tsx}'",
-    "lint:fix": "eslint '**/*.{js,jsx,ts,tsx}' --fix"
+    "lint:fix": "eslint '**/*.{js,jsx,ts,tsx}' --fix",
+    "release": "release-it"
   },
   "peerDependencies": {
     "@strapi/design-system": "^1.1.0",
@@ -28,7 +29,8 @@
     "react": "^18.2.0",
     "react-intl": "^6.0.8",
     "react-redux": "^8.0.2",
-    "react-router-dom": "^6.3.0"
+    "react-router-dom": "^6.3.0",
+    "release-it": "^15.3.0"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^3.3.0",
@@ -67,5 +69,10 @@
     "qrcode",
     "page",
     "next"
-  ]
+  ],
+  "release-it": {
+    "github": {
+      "release": true
+    }
+  }
 }
