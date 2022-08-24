@@ -1,19 +1,16 @@
 import { Button } from '@strapi/design-system';
-import { ExternalLink } from '@strapi/icons';
+import { Download } from '@strapi/icons';
 import PropTypes from 'prop-types';
 import React, { memo } from 'react';
 import { useIntl } from 'react-intl';
 
 import { getTrad } from '../../utils';
 
-const DownloadButton = ({ urlToEncode }) => {
+const DownloadButton = ({ urlToEncode, filename }) => {
   const { formatMessage } = useIntl();
 
   // get root url
-
   const rootUrl = window.location.origin;
-  console.log(rootUrl);
-
   const handleClick = (event) => {
     const destination = urlToEncode;
 
@@ -22,14 +19,16 @@ const DownloadButton = ({ urlToEncode }) => {
       return;
     }
 
-    window.open(`${rootUrl}/qrcode-generator?url=${encodeURIComponent(destination)}`);
+    window.open(
+      `${rootUrl}/qrcode-generator?url=${encodeURIComponent(destination)}&filename=${filename}`
+    );
   };
 
   return (
     <Button
       onClick={handleClick}
       size="S"
-      startIcon={<ExternalLink />}
+      startIcon={<Download />}
       variant="secondary"
       style={{ width: '100%' }}
     >
@@ -43,6 +42,7 @@ const DownloadButton = ({ urlToEncode }) => {
 
 DownloadButton.propTypes = {
   urlToEncode: PropTypes.string,
+  filename: PropTypes.string,
 };
 
 export default memo(DownloadButton);

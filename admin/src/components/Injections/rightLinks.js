@@ -18,8 +18,9 @@ const RightLinks = () => {
   }
 
   const { urlToEncode } = data.urls;
+  const filename = data.urls.targetFieldValue;
 
-  return <DownloadButton urlToEncode={urlToEncode} />;
+  return <DownloadButton urlToEncode={urlToEncode} filename={filename} />;
 };
 
 export default RightLinks;

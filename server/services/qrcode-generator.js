@@ -24,8 +24,11 @@ module.exports = ({ strapi }) => ({
       publishedQuery
     );
 
+    const targetFieldValue = publishedTargetFieldValue;
+
     return {
       urlToEncode,
+      targetFieldValue,
     };
   },
 });
