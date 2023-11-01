@@ -3,37 +3,51 @@
 const { getService, pluginId } = require('../utils');
 
 const QRCode = require('qrcode');
+const setDownloadHeaders = (ctx, filename, contentType) => {
+  ctx.type = `${contentType}; charset=utf-8`;
+  ctx.set('Content-Disposition', `attachment; filename=${filename}`);
+};
+
+const handleSVG = async (ctx, url, filename) => {
+  try {
+    const svg = await QRCode.toString(url, { type: 'svg' });
+    if (ctx.request.query.download === 'true') {
+      setDownloadHeaders(ctx, `${filename}.svg`, 'image/svg+xml');
+      ctx.body = `<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080">${svg}</svg>`;
+    } else {
+      ctx.type = 'image/svg+xml; charset=utf-8';
+      ctx.body = { svg };
+    }
+  } catch (err) {
+    ctx.throw(500, err);
+  }
+};
+
+const handleImage = async (ctx, url, filename, ext) => {
+  try {
+    const buffer = await QRCode.toBuffer(url, { type: ext });
+    setDownloadHeaders(ctx, `${filename}.${ext}`, `image/${ext}`);
+    ctx.body = buffer;
+  } catch (err) {
+    ctx.throw(500, err);
+  }
+};
 
 module.exports = {
-  // get root url
   async V1(ctx) {
-    const { url } = ctx.request.query;
-    let { filename } = ctx.request.query;
-    if (!filename) {
-      filename = 'qrcode';
-    }
+    const { url, filename = 'qrcode', ext } = ctx.request.query;
+
     if (!url) {
-      ctx.throw(400, 'Url is required');
+      return ctx.throw(400, 'Url is required');
     }
 
-    QRCode.toString(url, { type: 'svg' }, (err, svg) => {
-      if (err) {
-        ctx.throw(500, err);
-      }
-      if (ctx.request.query && ctx.request.query.download === 'true') {
-        ctx.type = 'image/svg+xml; charset=utf-8';
-        ctx.set('Content-Disposition', `attachment; filename=${filename}.svg`);
-
-        ctx.body = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1080" height="1080" viewBox="0 0 1080 1080">${svg}</svg>`;
-      } else {
-        ctx.type = 'image/svg+xml; charset=utf-8';
-        ctx.status = 200;
-        // json output
-        ctx.body = {
-          svg: `${svg}`,
-        };
-      }
-    });
+    if (!ext || ext === 'svg') {
+      await handleSVG(ctx, url, filename);
+    } else if (ext === 'png' || ext === 'jpeg' || ext === 'jpg') {
+      await handleImage(ctx, url, filename, ext);
+    } else {
+      ctx.throw(400, 'Invalid extension');
+    }
   },
   async config(ctx) {
     const { contentTypes } = await getService('plugin').getConfig();
@@ -44,7 +58,6 @@ module.exports = {
 
     ctx.send({ config });
   },
-
   async findOne(ctx) {
     const { uid, id } = ctx.request.params;
 
